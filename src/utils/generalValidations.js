@@ -4,6 +4,16 @@ const validateGeneral = (value, message) => {
   }
 };
 
+// add option fields to main data
+const addFieldIfExist = (value, key, data) => {
+  const dataTemp = data;
+  if (value) {
+    dataTemp[key] = value;
+  }
+  return dataTemp;
+};
+
 module.exports = {
   validateGeneral,
+  addFieldIfExist,
 };

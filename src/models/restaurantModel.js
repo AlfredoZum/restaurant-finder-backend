@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const RestaurantSchema = new mongoose.Schema({
+  user_id: mongoose.Types.ObjectId,
   name: {
     type: String,
     required: true,
@@ -9,7 +10,7 @@ const RestaurantSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  types: [String],
+  categories: [String],
   address: {
     type: {
       latitude: Number,
