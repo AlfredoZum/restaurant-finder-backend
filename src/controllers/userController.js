@@ -1,4 +1,6 @@
+const jwt = require('jsonwebtoken');
 const { UserService } = require('../services/userService');
+const config = require('../utils/config');
 
 exports.loginUser = async (req, res) => {
   const { body } = req;
@@ -6,9 +8,17 @@ exports.loginUser = async (req, res) => {
   userService
     .login(body)
     .then((result) => {
+      const payload = {
+        check: true,
+        user: result,
+      };
+      const token = jwt.sign(payload, config.key, {
+        expiresIn: 1440,
+      });
       res.status(200).send({
         status: 200,
         result,
+        token,
         message: 'User register',
       });
     })
@@ -26,9 +36,17 @@ exports.registerUser = async (req, res) => {
   userService
     .create(body)
     .then((result) => {
+      const payload = {
+        check: true,
+        user: result,
+      };
+      const token = jwt.sign(payload, config.key, {
+        expiresIn: 1440,
+      });
       res.status(200).send({
         status: 200,
         result,
+        token,
         message: 'User register',
       });
     })

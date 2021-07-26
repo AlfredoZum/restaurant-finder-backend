@@ -25,7 +25,7 @@ class UserService {
             reject(Error('Password did not match'));
           }
           this.user.password = null;
-          resolve(res);
+          resolve(this.user);
         });
       } catch (error) {
         reject(error);
@@ -57,6 +57,7 @@ class UserService {
               };
               const userSchema = new UserSchema(data);
               const user = await userSchema.save();
+              user.password = null;
               resolve(user);
             })
             .catch((error) => reject(error));
