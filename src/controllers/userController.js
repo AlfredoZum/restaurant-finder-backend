@@ -13,7 +13,7 @@ exports.loginUser = async (req, res) => {
         user: result,
       };
       const token = jwt.sign(payload, config.key, {
-        expiresIn: 1440,
+        expiresIn: 3600,
       });
       res.status(200).send({
         status: 200,
