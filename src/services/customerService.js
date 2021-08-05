@@ -1,8 +1,8 @@
-const UserSchema = require('../models/userModel');
+const CustomerSchema = require('../models/customerModel');
 const { validateGeneral } = require('../utils/generalValidations');
 const { generatePassword, checkPassword } = require('../utils/bcryptUtil');
 
-class UserService {
+class CustomerService {
   login(body) {
     this.email = body.email;
     this.password = body.password;
@@ -10,7 +10,7 @@ class UserService {
       try {
         validateGeneral(this.email, 'The email is required');
         validateGeneral(this.password, 'The password is required');
-        UserSchema.findOne({
+        CustomerSchema.findOne({
           email: this.email,
         }).then(async (res) => {
           this.user = Object.create(res);
@@ -43,7 +43,7 @@ class UserService {
         validateGeneral(this.name, 'The name is required');
         validateGeneral(this.email, 'The email is required');
         validateGeneral(this.password, 'The password is required');
-        UserSchema.findOne({
+        CustomerSchema.findOne({
           email: this.email,
         }).then(async (result) => {
           if (result) {
@@ -56,7 +56,7 @@ class UserService {
                 email: this.email,
                 password: hash,
               };
-              const userSchema = new UserSchema(data);
+              const userSchema = new CustomerSchema(data);
               const user = await userSchema.save();
               user.password = null;
               resolve(user);
@@ -72,5 +72,5 @@ class UserService {
 }
 
 module.exports = {
-  UserService,
+  CustomerService,
 };

@@ -2,6 +2,38 @@ const FoodSchema = require('../models/foodModel');
 const { validateGeneral, addFieldIfExist } = require('../utils/generalValidations');
 
 class FoodService {
+  findById(body) {
+    this.foodId = body.foodId;
+    return new Promise((resolve, reject) => {
+      try {
+        validateGeneral(this.foodId, 'The identificador of food is required');
+        try {
+          FoodSchema.findById(this.foodId).then((res) => resolve(res));
+        } catch (error) {
+          reject(error);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  findByRestaurant(body) {
+    this.restaurantId = body.restaurantId;
+    return new Promise((resolve, reject) => {
+      try {
+        validateGeneral(this.restaurantId, 'The identificador of restaurant is required');
+        try {
+          FoodSchema.find({ restaurant_id: this.restaurantId }).then((res) => resolve(res));
+        } catch (error) {
+          reject(error);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   create(body) {
     this.restaurantId = body.restaurantId;
     this.name = body.name;

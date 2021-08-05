@@ -1,6 +1,46 @@
 const { FoodService } = require('../services/foodService');
 
-exports.createFood = async (req, res) => {
+exports.findById = (req, res) => {
+  const { body } = req;
+  const foodService = new FoodService();
+  foodService
+    .findById(body)
+    .then((result) => {
+      res.status(200).send({
+        status: 200,
+        result,
+        message: 'Food find',
+      });
+    })
+    .catch((error) => {
+      res.status(401).send({
+        status: 401,
+        message: error.message,
+      });
+    });
+};
+
+exports.findByRestaurant = (req, res) => {
+  const { body } = req;
+  const foodService = new FoodService();
+  foodService
+    .findByRestaurant(body)
+    .then((result) => {
+      res.status(200).send({
+        status: 200,
+        result,
+        message: 'Food find',
+      });
+    })
+    .catch((error) => {
+      res.status(401).send({
+        status: 401,
+        message: error.message,
+      });
+    });
+};
+
+exports.createFood = (req, res) => {
   const { body } = req;
   const foodService = new FoodService();
   foodService

@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
-const { UserService } = require('../services/userService');
+const { CustomerService } = require('../services/customerService');
 const config = require('../utils/config');
 
-exports.loginUser = async (req, res) => {
+exports.loginCustomer = async (req, res) => {
   const { body } = req;
-  const userService = new UserService();
-  userService
+  const customerService = new CustomerService();
+  customerService
     .login(body)
     .then((result) => {
       const payload = {
@@ -30,10 +30,10 @@ exports.loginUser = async (req, res) => {
     });
 };
 
-exports.registerUser = async (req, res) => {
+exports.registerCustomer = async (req, res) => {
   const { body } = req;
-  const userService = new UserService();
-  userService
+  const customerService = new CustomerService();
+  customerService
     .create(body)
     .then((result) => {
       const payload = {
